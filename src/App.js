@@ -13,16 +13,18 @@ import ListWithChildrenAsFunction from './conditionals-and-loops/loops/ListWithC
 import ListItem from './conditionals-and-loops/loops/ListItem';
 import ListWithMap from './conditionals-and-loops/loops/ListWithMap';
 import UserLoginStatus from './conditionals-and-loops/conditionals/UserLoginStatus';
+import OpenClosedPrinciple from './open-closed-principle/OpenClosedPrinciple';
 
-const renderListItem = ({index}) => (<ListItem key={ index } index={ index } />)
+const renderListItem = ({ index }) => (<ListItem key={index} index={index} />)
 
 function App() {
   return (
     <div className="App">
 
-      <UserLoginStatus />
-
-      <HelloYou />
+      { /**
+        Single responsibility
+       */}
+      {/* <HelloYou />
       <HelloYouWithParams />
 
       <HelloYouWithParams name="Elayne" />
@@ -67,9 +69,13 @@ function App() {
           height="25px"
         />
         Submit
-      </ButtonWithComponentChildren>
+      </ButtonWithComponentChildren> */}
 
-      <ListWithChildren items={ 5 } />
+
+      { /**
+        Loops
+       */}
+      {/* <ListWithChildren items={ 5 } />
 
       <br />
       <br />
@@ -87,7 +93,18 @@ function App() {
         { renderListItem }
       </ListWithChildrenAsFunction>
 
-      <ListWithMap items={ ['Uno', 'Dos', 'Tres'] } />
+      <ListWithMap items={ ['Uno', 'Dos', 'Tres'] } /> */}
+
+      { /**
+        Conditionals
+       */ }
+      {/* <UserLoginStatus /> */}
+
+      { /**
+        Open closed principle
+      */}
+      <OpenClosedPrinciple>
+      </OpenClosedPrinciple>
 
     </div>
   );
