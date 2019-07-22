@@ -1,42 +1,24 @@
-class StorageEngineInterface {
-    get(index) {
-        throw new Error('Not implemented');
-    }
+// @flow
 
-    all() {
-        throw new Error('Not implemented');
-    }
+import { StorageEngineInterface } from './StorageEngineInterface'
 
-    put(index, value) {
-        throw new Error('Not implemented');
-    }
-
-    delete(index) {
-        throw new Error('Not implemented');
-    }
-
-    clear() {
-        throw new Error('Not implemented');
-    }
-}
-
-class JsObjectStorageEngine extends StorageEngineInterface {
+class JsObjectStorageEngine implements StorageEngineInterface {
 
     data = {}
 
-    get(index) {
+    get(index: string): mixed {
         return this.data[index]
     }
 
-    all() {
+    all(): mixed {
         return this.data
     }
 
-    put(index, value) {
+    put(index: string, value: mixed): void {
         this.data[index] = value
     }
 
-    delete(index) {
+    delete(index: string): void {
         delete this.data[index]
     }
 

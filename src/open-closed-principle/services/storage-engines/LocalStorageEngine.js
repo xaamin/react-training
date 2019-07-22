@@ -1,32 +1,14 @@
-class StorageEngineInterface {
-    get(index) {
-        throw new Error('Not implemented');
-    }
+// @flow
 
-    all() {
-        throw new Error('Not implemented');
-    }
+import { StorageEngineInterface } from './StorageEngineInterface'
 
-    put(index, value) {
-        throw new Error('Not implemented');
-    }
+class localStorageEngine implements StorageEngineInterface {
 
-    delete(index) {
-        throw new Error('Not implemented');
-    }
-
-    clear() {
-        throw new Error('Not implemented');
-    }
-}
-
-class JsObjectStorageEngine extends StorageEngineInterface {
-
-    get(index) {
+    get(index: string) : mixed {
         return localStorage.getItem(index)
     }
 
-    all() {
+    all(): Object {
         let all = {};
         const keys = Object.keys(localStorage);
         let i = keys.length;
@@ -38,17 +20,17 @@ class JsObjectStorageEngine extends StorageEngineInterface {
         return all;
     }
 
-    put(index, value) {
-        return localStorage.setItem(index, value)
+    put(index: string, value: mixed) : void {
+        localStorage.setItem(index, value)
     }
 
-    delete(index) {
-        return localStorage.removeItem(index)
+    delete(index: string): void {
+        localStorage.removeItem(index)
     }
 
-    clear() {
-        return localStorage.clear()
+    clear(): void {
+        localStorage.clear()
     }
 }
 
-export default JsObjectStorageEngine;
+export default localStorageEngine;

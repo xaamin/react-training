@@ -1,23 +1,13 @@
-class StorageEngineInterface {
-    get(index) {
-        throw new Error('Not implemented');
-    }
+// @flow
 
-    all() {
-        throw new Error('Not implemented');
-    }
+export interface StorageEngineInterface {
+    get(index: string) : mixed;
 
-    put(index, value) {
-        throw new Error('Not implemented');
-    }
+    all(): Object;
 
-    delete(index) {
-        throw new Error('Not implemented');
-    }
+    put(index: string, value: mixed) : void;
 
-    clear() {
-        throw new Error('Not implemented');
-    }
+    delete(index: string) : void;
+
+    clear() : void;
 }
-
-export default StorageEngineInterface;

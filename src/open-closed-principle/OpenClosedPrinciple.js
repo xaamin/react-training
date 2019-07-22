@@ -20,6 +20,10 @@ export class OpenClosedPrinciple extends Component {
             Storage.put('LoggedIn', true);
 
             console.log(Storage.all())
+
+            Storage.engine('localStorage').put('LoggedInLS', true);
+
+            console.log('LOGGED IN LS?', Storage.engine('localStorage').all())
         })
     }
 

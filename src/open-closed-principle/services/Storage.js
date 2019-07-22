@@ -1,39 +1,69 @@
+// @flow
+
 import JsObjectStorageEngine from './storage-engines/JsObjectStorageEngine'
+import { StorageEngineInterface } from './storage-engines/StorageEngineInterface'
 
 class Storage {
 
-    storage = null;
+    _engines: Object = {};
+    defaultEngine: string;
 
-    constructor(storage = undefined) {
+    storage: StorageEngineInterface;
+
+    constructor(storage?: StorageEngineInterface, defaultEngine: string = 'default') {
+        let _storage;
+
         if (!storage) {
-            this.storage = new JsObjectStorageEngine();
+            _storage = new JsObjectStorageEngine();
         } else {
-            this.storage = storage;
+            _storage = storage;
         }
+
+        this.defaultEngine = defaultEngine;
+
+        this._engines.default = _storage;
     }
 
-    setStrategy(storage) {
-        this.storage = storage;
+    register(engine: string, implementation: StorageEngineInterface) {
+        this._engines[engine] = implementation;
     }
 
-    get(index) {
-        return this.storage.get(index)
+    engines(): Object {
+        return this._engines;
     }
 
-    all() {
-        return this.storage.all()
+    engine(engine: string): StorageEngineInterface {
+        const _engine = this._engines[engine];
+
+        if (!_engine) {
+            throw new Error(`Engine ${engine} is not registered`);
+        }
+
+        return _engine;
     }
 
-    put(index, value) {
-        this.storage.put(index, value)
+    getDefaultEngine(): StorageEngineInterface {
+        return this.engine(this.defaultEngine);
     }
 
-    delete(index) {
-        this.storage.delete(index)
+    get(index: string): mixed {
+        return this.getDefaultEngine().get(index)
     }
 
-    clear() {
-        this.storage.clear()
+    all(): Object {
+        return this.getDefaultEngine().all()
+    }
+
+    put(index: string, value: mixed): void {
+        this.getDefaultEngine().put(index, value)
+    }
+
+    delete(index: string): void {
+        this.getDefaultEngine().delete(index)
+    }
+
+    clear(): void {
+        this.getDefaultEngine().clear()
     }
 }
 

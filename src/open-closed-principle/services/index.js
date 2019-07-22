@@ -1,9 +1,14 @@
+// @flow
+
 import StorageService from './Storage'
 
-import JsObjectStorageEngine from './storage-engines/JsObjectStorageEngine'
 import LocalStorageEngine from './storage-engines/LocalStorageEngine'
+import JsObjectStorageEngine from './storage-engines/JsObjectStorageEngine'
 
-const Storage = new StorageService(new JsObjectStorageEngine());
+const Storage = new StorageService();
+
+Storage.register('json', new JsObjectStorageEngine())
+Storage.register('localStorage', new LocalStorageEngine())
 
 export {
     Storage
